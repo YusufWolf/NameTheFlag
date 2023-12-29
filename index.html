@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#009578">
+    <meta name="description" content="This application is a game to guess the country of the flag.">
+    <meta name="keywords" content="flag, country, game, guessing">
+    <title>Flags of the World</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="images/homeImg.jpg">
+    <link rel="icon" href="images/homeImg.jpg">
+</head>
+<body>
+    <div id="container">
+        <h2 class="titlegame" id="animasyon">Name The Flag</h2>
+        <img src="images/homeImg.jpg" alt="logo" id="logo"><br>
+        <input type="text" id="usernameInput" placeholder="Enter a nick name" style="height: 5vh; font-size: 20px;">
+        <button id="startButton" onclick="flags()" disabled> START </button>
+    </div>
+    <div id="scores"></div>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
