@@ -35,24 +35,24 @@ var fontSize = 16;
 var growing = true; 
 
 
-setInterval(function () {
+// setInterval(function () {
     
-    document.getElementById('animasyonMetni').style.fontSize = fontSize + 'px';
+//     document.getElementById('animasyonMetni').style.fontSize = fontSize + 'px';
 
     
-    if (growing) {
-        fontSize += 2;
-    } else {
-        fontSize -= 2;
-    }
+//     if (growing) {
+//         fontSize += 2;
+//     } else {
+//         fontSize -= 2;
+//     }
 
   
-    if (fontSize >= 30) {
-        growing = false;
-    } else if (fontSize <= 16) {
-        growing = true;
-    }
-}, 500); 
+//     if (fontSize >= 30) {
+//         growing = false;
+//     } else if (fontSize <= 16) {
+//         growing = true;
+//     }
+// }, 500); 
 
 
 function flags() {
@@ -128,7 +128,8 @@ function finish() {
       </tr>
     </table>
     <button id="flags" onclick="flags()">Try Again</button>
-    <button id="scoretable" onclick="scoretable()">Score Table</button>`;
+    <button id="scoretable" onclick="scoretable()">Score Table</button>
+    <button id="scoretable" onclick="goBack()">Main Menu</button>`;
   let flagURL = "";
   for (let i = 0; i < correctAnswersArray.length; i++) {
     let correctCountry = dataBase.find(
@@ -153,7 +154,7 @@ function finish() {
   correctAnswers = 0;
   incorrectAnswers = 0;
   correctAnswersArray = [];
-  userAnswersArray = [];
+  userAnswersArray = [];                                  
   timerValue = 0;
 }
 
@@ -186,7 +187,7 @@ function insertData() {
     });
 }
 
-// top 10 scores
+// top 10 scores oyun sonu
 function scoretable() {
   let rank = 1;
   rmv();
@@ -201,6 +202,43 @@ function scoretable() {
       </tr>
     </table>
     <button onclick="flags()">Try Again</button>`;
+  db.collection("Scores")
+    .orderBy("score", "desc")
+    .orderBy("time", "asc")
+    .limit(10)
+    .get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${rank}</td>
+          <td>${doc.data().name}</td>
+          <td>${doc.data().score}</td>
+          <td>${doc.data().time}</td>`;
+        document.querySelector("table").appendChild(row);
+        rank++;
+      });
+    });
+}
+function goBack() {
+  // Sayfayı yenile
+  location.reload();
+}
+//baslangictaki score table
+function scoretables() {
+  let rank = 1;
+  rmv();
+  container.innerHTML += `
+    <h2>Top 10 scores</h2>
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Time</th>
+      </tr>
+    </table>
+    <button onclick="goBack()">BACK</button>`;
   db.collection("Scores")
     .orderBy("score", "desc")
     .orderBy("time", "asc")
